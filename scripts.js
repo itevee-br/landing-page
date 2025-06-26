@@ -1,3 +1,35 @@
+document.addEventListener('DOMContentLoaded', function() { //javascript carrega so quando o html carrega
+
+// Variáveis para controle do swipe
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Seleciona o carrossel
+const carousel = document.querySelector('.carousel');
+
+// Adiciona os listeners para touch events
+carousel.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+carousel.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, { passive: true });
+
+// Função para detectar direção do swipe
+function handleSwipe() {
+    const swipeThreshold = 50; // Mínimo de pixels para considerar um swipe
+
+    if (touchEndX < touchStartX - swipeThreshold) {
+        // Swipe para a esquerda (próximo slide)
+        goNext();
+    } else if (touchEndX > touchStartX + swipeThreshold) {
+        // Swipe para a direita (slide anterior)
+        goPrev();
+    }
+}
+
 // hamburguer
 const hamburguer = document.querySelector('.hamburguer');
 const navLinks = document.querySelector('.nav-links');
@@ -91,3 +123,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+});//fim do javascript carrega quando o html carrega
